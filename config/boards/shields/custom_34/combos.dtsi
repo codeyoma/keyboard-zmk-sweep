@@ -1,0 +1,66 @@
+/**
+ *	https://zmk.dev/docs/config/combos
+ */
+
+#define COMBO_(NAME, BINDINGS, KEYPOS, LAYERS, TERM, ...)	\
+    combo_##NAME { 											\
+        timeout-ms			= <TERM>; 						\
+        bindings			= <BINDINGS>; 					\
+        key-positions		= <KEYPOS>; 					\
+        layers				= <LAYERS>; 					\
+		__VA_ARGS__ 										\
+    };
+
+/ {
+	combos {
+		compatible = "zmk,combos";
+		/*
+		KEY POSITIONS
+
+		corne-34
+		╭────────────────────╮  ╭────────────────────╮
+		│ 1   2   3   4   5  │  │ 6   7   8   9   10 │
+		│ 13  14  15  16  17 │  │ 18  19  20  21  22 │
+		│ 25  26  27  28  29 │  │ 30  31  32  33  34 │
+		╰───────────╮ 37  38 │  │ 39  40 ╭───────────╯
+					╰────────╯  ╰────────╯
+
+		sweep-34
+		╭────────────────────╮  ╭────────────────────╮
+		│ 0   1   2   3   4  │  │ 5   6   7   8   9  │
+		│ 10  11  12  13  14 │  │ 15  16  17  18  19 │
+		│ 20  21  22  23  24 │  │ 25  26  27  28  29 │
+		╰───────────╮ 30  31 │  │ 32  33 ╭───────────╯
+					╰────────╯  ╰────────╯
+		*/
+
+		COMBO_(escape_2,	&kp ESC,			30	31,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+		COMBO_(enter,		&kp ENTER,			32	33,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+
+		COMBO_(escape_1,	&kp ESC,			10	20,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+		COMBO_(lessthan,	&kp LT,				11	21,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+		COMBO_(greaterthan,	&kp GT,				12	22,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+		//COMBO_(,	&kp ESC,			13	23,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+		//COMBO_(,	&kp ESC,			14	24,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+
+		//COMBO_(under,		&kp UNDER,			15	25,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+		COMBO_(minus,		&kp MINUS,			16	26,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+		COMBO_(equal,		&kp EQUAL,			17	27,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+		COMBO_(pipe,		&kp PIPE,			18	28,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+		COMBO_(backspace,	&kp BSPC,			19	29,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+
+		COMBO_(prev_tab,	&kp LC(LS(TAB)),	27	28,	DEFAULT COLEMAK,				CB_MINIMUM_SPEED)
+		COMBO_(next_tab,	&kp LC(TAB),		28  29,	DEFAULT COLEMAK,				CB_MINIMUM_SPEED)
+
+		COMBO_(exclamation,	&kp EXCL,			0	10,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+		COMBO_(atsign,		&kp AT,				1	11,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+		COMBO_(hash,		&kp HASH,			2	12,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+		COMBO_(dollar,		&kp DOLLAR,			3	13,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+		COMBO_(percent,		&kp PERCENT,		4	14,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+		COMBO_(caret,		&kp CARET,			5	15,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+		COMBO_(ampersand,	&kp AMPERSAND,		6	16,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+		COMBO_(asterisk,	&kp ASTERISK,		7	17,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+		COMBO_(under,		&kp UNDER,			8	18,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+		COMBO_(plus,		&kp PLUS,			9	19,	DEFAULT COLEMAK LOWER,			CB_MINIMUM_SPEED)
+	};
+};

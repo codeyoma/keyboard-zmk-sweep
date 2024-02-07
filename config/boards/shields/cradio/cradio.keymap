@@ -1,0 +1,91 @@
+/*
+ * Copyright (c) 2020 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+ /*
+ references:
+	https://github.com/minusfive/zmk-config/blob/main/knucklehead/combos.dtsi
+	https://github.com/filterpaper/zmk-config/blob/main/config/cradio.keymap
+	https://github.com/caksoylar/zmk-config/blob/main/config/combos.dtsi
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/outputs.h>
+
+#define ALL		(-1)
+#define NONE	0
+#define DEFAULT	0
+#define COLEMAK	1
+#define LOWER	2
+#define RAISE	3
+#define ADJUST	4
+#define TEST	5
+
+#define ________	&trans
+#define XXXXXXXX 	&none
+
+#define FOCUS_NEXT	&kp LC(F4)
+#define FOCUS_MENU	&kp LC(F2)
+#define MOVE_LEFT	&kp LG(LBKT)
+#define MOVE_RIGHT	&kp LG(RBKT)
+
+#define HM_LP	&hm LCTRL
+#define HM_LR	&hm LGUI
+#define HM_LM	&hm LALT
+#define HM_LI	&hm LSHFT
+
+#define HM_RI	&hm LSHFT
+#define HM_RM	&hm LALT
+#define HM_RR	&hm LGUI
+#define HM_RP	&hm LCTRL
+
+#define TAPPING_TERM_MS		250
+#define LT_TAPPING_TERM_MS	250
+#define TD_TAPPING_TERM_MS	350
+#define QUICK_TAP_MS		140
+#define GLOBAL_QUICK_TAP_MS	150
+#define IDLE_MS				100
+#define CB_MINIMUM_SPEED	70
+#define	DEFAULT_SPEED		50
+
+#define PARAM_ZERO	0
+#define PARAM_ONE	1
+#define PARAM_TWO	2
+
+#define CORNE_34_MODE
+
+#ifdef CORNE_42_MODE
+#include "../custom_42/behaviors.dtsi"
+#include "../custom_42/combos.dtsi"
+#include "../custom_42/macros.dtsi"
+#include "../layer_42/L1-qwerty.dtsi"
+#include "../layer_42/L1-colemak.dtsi"
+#include "../layer_42/L2-lower.dtsi"
+#include "../layer_42/L3-raise.dtsi"
+#include "../layer_42/L4-adjust.dtsi"
+#include "../layer_42/L5-test.dtsi"
+#else
+#include "../custom_34/behaviors.dtsi"
+#include "../custom_34/combos.dtsi"
+#include "../custom_34/macros.dtsi"
+#include "../layer_34/L1-qwerty.dtsi"
+#include "../layer_34/L1-colemak.dtsi"
+#include "../layer_34/L2-lower.dtsi"
+#include "../layer_34/L3-raise.dtsi"
+#include "../layer_34/L4-adjust.dtsi"
+#include "../layer_34/L5-test.dtsi"
+#endif
+
+/ {
+	conditional_layers {
+		compatible = "zmk,conditional-layers";
+		tri_layer   {
+			if-layers = <LOWER RAISE>;
+			then-layer = <ADJUST>;
+		};
+	};
+};
