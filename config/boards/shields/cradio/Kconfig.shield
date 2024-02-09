@@ -9,3 +9,6 @@ config SHIELD_CRADIO_RIGHT
 
 config SHIELD_CRADIO_DONGLE
 	def_bool $(shields_list_contains,cradio_dongle)
+
+config SHIELD_CRADIO_CENTRAL_LEFT
+	def_bool $(shields_list_contains,cradio_central_left)
