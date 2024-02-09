@@ -5,3 +5,8 @@
  */
 
 #include "cradio.dtsi"
+
+&default_transform {
+    col-offset = <0>;
+};
+

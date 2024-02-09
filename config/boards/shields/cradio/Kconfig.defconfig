@@ -12,12 +12,9 @@ config ZMK_SPLIT_ROLE_CENTRAL
 config ZMK_USB
 	default y
 
-config ZMK_SPLIT
-	default y
-
 endif
 
-if SHIELD_CRADIO_LEFT || SHIELD_CRADIO_RIGHT
+if SHIELD_CRADIO_LEFT || SHIELD_CRADIO_RIGHT || SHIELD_CRADIO_DONGLE
 
 config ZMK_SPLIT
 	default y
