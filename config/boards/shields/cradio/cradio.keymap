@@ -56,15 +56,15 @@
 #define PARAM_ONE	1
 #define PARAM_TWO	2
 
-#include "../../../../sweep/custom/behaviors.dtsi"
-#include "../../../../sweep/custom/combos.dtsi"
-#include "../../../../sweep/custom/macros.dtsi"
-#include "../../../../sweep/layer/L1-qwerty.dtsi"
-#include "../../../../sweep/layer/L1-colemak.dtsi"
-#include "../../../../sweep/layer/L2-lower.dtsi"
-#include "../../../../sweep/layer/L3-raise.dtsi"
-#include "../../../../sweep/layer/L4-adjust.dtsi"
-#include "../../../../sweep/layer/L5-test.dtsi"
+#include "../sweep/custom/behaviors.dtsi"
+#include "../sweep/custom/combos.dtsi"
+#include "../sweep/custom/macros.dtsi"
+#include "../sweep/layer/L1-qwerty.dtsi"
+#include "../sweep/layer/L1-colemak.dtsi"
+#include "../sweep/layer/L2-lower.dtsi"
+#include "../sweep/layer/L3-raise.dtsi"
+#include "../sweep/layer/L4-adjust.dtsi"
+#include "../sweep/layer/L5-test.dtsi"
 
 / {
 	conditional_layers {
