@@ -1,0 +1,55 @@
+/**
+ *	https://zmk.dev/docs/config/behaviors
+ */
+
+&lt {
+    flavor          = "tap-preferred";
+    tapping-term-ms = <200>;
+    quick-tap-ms    = <QUICK_TAP_MS>;
+};
+
+&mt {
+	flavor = "balanced";
+	tapping-term-ms = <TAPPING_TERM_MS>;
+	quick-tap-ms = <QUICK_TAP_MS>;
+};
+
+/ {
+	behaviors {
+
+        hm: homerow_mods {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <TAPPING_TERM_MS>;
+            quick-tap-ms = <0>;
+            flavor = "tap-preferred";
+            require-prior-idle-ms = <IDLE_MS>;
+            bindings = <&kp>, <&kp>;
+        };
+
+        td_gui_alt: tap_dance_gui_alt {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TAP_DANCE_GUI_ALT";
+            #binding-cells = <0>;
+            tapping-term-ms = <TD_TAPPING_TERM_MS>;
+            bindings = <&kp LGUI>, <&kp LALT>;
+        };
+
+        td_lalt_gui: tap_dance_lalt_gui {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TAP_DANCE_ALT_GUI";
+            #binding-cells = <0>;
+            tapping-term-ms = <TD_TAPPING_TERM_MS>;
+            bindings = <&kp LALT>, <&kp RGUI>;
+        };
+
+		td_ctrl_CGA: tap_dance_ctrl_CGA {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TAP_DANCE_CTRL_CTRL_GUI_ALT";
+            #binding-cells = <0>;
+            tapping-term-ms = <TD_TAPPING_TERM_MS>;
+            bindings = <&kp LCTRL>, <&kp LC(LG(LALT))>;
+        };
+
+    };
+};

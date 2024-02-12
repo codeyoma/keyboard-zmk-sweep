@@ -56,15 +56,29 @@
 #define PARAM_ONE	1
 #define PARAM_TWO	2
 
-#include "../../../../sweep/custom/behaviors.dtsi"
-#include "../../../../sweep/custom/combos.dtsi"
-#include "../../../../sweep/custom/macros.dtsi"
-#include "../../../../sweep/layer/L1-qwerty.dtsi"
-#include "../../../../sweep/layer/L1-colemak.dtsi"
-#include "../../../../sweep/layer/L2-lower.dtsi"
-#include "../../../../sweep/layer/L3-raise.dtsi"
-#include "../../../../sweep/layer/L4-adjust.dtsi"
-#include "../../../../sweep/layer/L5-test.dtsi"
+#define CORNE_34_MODE
+
+#ifdef CORNE_42_MODE
+#include "../corne/custom_42/behaviors.dtsi"
+#include "../corne/custom_42/combos.dtsi"
+#include "../corne/custom_42/macros.dtsi"
+#include "../corne/layer_42/L1-qwerty.dtsi"
+#include "../corne/layer_42/L1-colemak.dtsi"
+#include "../corne/layer_42/L2-lower.dtsi"
+#include "../corne/layer_42/L3-raise.dtsi"
+#include "../corne/layer_42/L4-adjust.dtsi"
+#include "../corne/layer_42/L5-test.dtsi"
+#else
+#include "../corne/custom_34/behaviors.dtsi"
+#include "../corne/custom_34/combos.dtsi"
+#include "../corne/custom_34/macros.dtsi"
+#include "../corne/layer_34/L1-qwerty.dtsi"
+#include "../corne/layer_34/L1-colemak.dtsi"
+#include "../corne/layer_34/L2-lower.dtsi"
+#include "../corne/layer_34/L3-raise.dtsi"
+#include "../corne/layer_34/L4-adjust.dtsi"
+#include "../corne/layer_34/L5-test.dtsi"
+#endif
 
 / {
 	conditional_layers {
