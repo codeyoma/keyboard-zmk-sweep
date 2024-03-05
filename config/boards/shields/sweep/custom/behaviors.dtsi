@@ -29,11 +29,18 @@
             bindings                = <&kp>, <&kp>;
         };
 
-        td_sqt: tap_dance_mods {
+        td_sqt: tap_dance_quote {
             compatible              = "zmk,behavior-tap-dance";
             #binding-cells          = <0>;
             tapping-term-ms         = <LT_TAPPING_TERM_MS>;
             bindings                = <&kp SQT>, <&kp DQT>;
+        };
+
+        td_lower_sp: tap_dance_lower_space {
+            compatible              = "zmk,behavior-tap-dance";
+            #binding-cells          = <0>;
+            tapping-term-ms         = <LT_TAPPING_TERM_MS>;
+            bindings                = <&mo LOWER>, <&kp SPACE>;
         };
 
         /*
