@@ -36,12 +36,14 @@
             bindings                = <&kp SQT>, <&kp DQT>;
         };
 
+        /*
         td_lower_sp: tap_dance_lower_space {
             compatible              = "zmk,behavior-tap-dance";
             #binding-cells          = <0>;
             tapping-term-ms         = <LT_TAPPING_TERM_MS>;
             bindings                = <&mo LOWER>, <&kp SPACE>;
         };
+        */
 
         /*
         td: tap_dance_mods {
