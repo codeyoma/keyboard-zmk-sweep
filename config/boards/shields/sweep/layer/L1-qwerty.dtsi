@@ -7,7 +7,7 @@
     compatible = "zmk,keymap";
 
 	default_layer {
-		label = "Default";
+		label = "MAGA";
         bindings = <
 //	╭───────────────┬───────────────┬───────────────┬───────────────┬───────────────╮   ╭───────────────┬───────────────┬───────────────┬───────────────┬───────────────╮
 	&kp Q           &kp W           &kp E           &kp R           &kp T               &kp Y           &kp U           &kp I           &kp O           &kp P

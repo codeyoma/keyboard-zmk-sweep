@@ -7,7 +7,7 @@
     compatible = "zmk,keymap";
 
     colemak_layer {
-        label = "Colemak";
+        label = "ARST";
         bindings = <
 //	╭───────────────┬───────────────┬───────────────┬───────────────┬───────────────╮   ╭───────────────┬───────────────┬───────────────┬───────────────┬───────────────╮
 	&kp Q           &kp W           &kp F           &kp P           &kp G               &kp J           &kp L           &kp U           &kp Y           &kp SEMI
