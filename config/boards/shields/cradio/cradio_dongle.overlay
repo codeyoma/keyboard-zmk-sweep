@@ -2,6 +2,7 @@
  * Copyright (c) 2020 The ZMK Contributors
  *
  * SPDX-License-Identifier: MIT
+ * https://github.com/englmaxi/zmk-dongle-display/tree/main
  */
 
 #include "cradio.dtsi"
@@ -20,7 +21,6 @@
         events = <0>;
     };
 };
-
 
 &pro_micro_i2c {
     status = "okay";
