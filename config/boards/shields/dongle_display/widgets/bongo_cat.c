@@ -98,7 +98,7 @@ static void set_animation(lv_obj_t *animing, struct bongo_cat_wpm_status_state s
             lv_animimg_start(animing);
             current_anim_state = anim_state_slow;
         }
-    } else if (state.wpm < 70) {
+    } else if (state.wpm < 60) {
         if (current_anim_state != anim_state_mid) {
             lv_animimg_set_src(animing, SRC(mid_imgs));
             lv_animimg_set_duration(animing, ANIMATION_SPEED_MID);
