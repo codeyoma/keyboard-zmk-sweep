@@ -2,19 +2,7 @@
  *	https://zmk.dev/docs/behaviors/macros
  */
 
-/*
- #define MACRO_(NAME, TAP, WAIT, ...)					\
-	/omit-if-no-ref/ NAME: macro_##NAME {				\
-    label          = #NAME;								\
-    compatible     = "zmk,behavior-macro";				\
-    tap-ms         = <TAP>;								\
-    wait-ms        = <WAIT>;							\
-    #binding-cells = <0>;							   	\
-	bindings       = __VA_ARGS__; 						\
-};
-*/
-
-#define MACRO_(NAME, TAP, WAIT, BINDING)				\
+#define MACRO_(NAME, TAP, WAIT, BINDING, ...)			\
 	/omit-if-no-ref/ NAME: macro_##NAME {				\
     label          = #NAME;								\
     compatible     = "zmk,behavior-macro";				\
@@ -22,6 +10,7 @@
     wait-ms        = <WAIT>;							\
     #binding-cells = <0>;							   	\
 	bindings       = <BINDING>; 						\
+	__VA_ARGS__											\
 };
 
 
