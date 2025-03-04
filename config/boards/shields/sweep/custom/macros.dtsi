@@ -3,7 +3,7 @@
  */
 
 #define MACRO_(NAME, TAP, WAIT, ...)					\
-	/omit-if-no-ref/ NAME: macro_##NAME {		\
+	/omit-if-no-ref/ NAME: macro_##NAME {				\
     label          = #NAME;								\
     compatible     = "zmk,behavior-macro";				\
     tap-ms         = <TAP>;								\
@@ -35,15 +35,5 @@
         MACRO_(	nerd_r, 1, 1, <&kp LC(W) &kp U>)
         MACRO_(lang_ex, 1, 1, <&macro_tap &kp RALT>, <&macro_tap &tog COLEMAK>)
 
-	/*
-		/omit-if-no-ref/ lang_ex: lang_change {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&macro_tap &kp RALT>
-                , <&macro_tap &tog COLEMAK>
-                ;
-        };
-		*/
     };
 };
