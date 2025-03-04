@@ -2,7 +2,8 @@
  *	https://zmk.dev/docs/behaviors/macros
  */
 
-#define MACRO_(NAME, TAP, WAIT, ...)					\
+/*
+ #define MACRO_(NAME, TAP, WAIT, ...)					\
 	/omit-if-no-ref/ NAME: macro_##NAME {				\
     label          = #NAME;								\
     compatible     = "zmk,behavior-macro";				\
@@ -10,6 +11,17 @@
     wait-ms        = <WAIT>;							\
     #binding-cells = 0;							   		\
 	bindings       = __VA_ARGS__; 						\
+};
+*/
+
+#define MACRO_(NAME, TAP, WAIT, BINDING)				\
+	/omit-if-no-ref/ NAME: macro_##NAME {				\
+    label          = #NAME;								\
+    compatible     = "zmk,behavior-macro";				\
+    tap-ms         = <TAP>;								\
+    wait-ms        = <WAIT>;							\
+    #binding-cells = 0;							   		\
+	bindings       = <BINDING>; 						\
 };
 
 
@@ -33,20 +45,16 @@
 		};
 		*/
 
-        MACRO_(nerd_l, 1, 1, <&kp LC(W) &kp H>)
-        MACRO_(nerd_r, 1, 1, <&kp LC(W) &kp U>)
-        MACRO_(lang_ex, 1, 1, <&macro_tap &kp RALT>, <&macro_tap &tog COLEMAK>)
+        MACRO_(nerd_l, 1, 1, &kp LC(W) &kp H)
+        MACRO_(nerd_r, 1, 1, &kp LC(W) &kp U)
 
-		/*
 		lang_ex: lang_change {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings
-                = <&macro_tap &kp RALT>
-                , <&macro_tap &tog COLEMAK>
-                ;
+            compatible 		= "zmk,behavior-macro";
+            #binding-cells	= <0>;
+            bindings		=
+				<&macro_tap &kp RALT>,
+				<&macro_tap &tog COLEMAK>;
         };
-		*/
 
     };
 };
