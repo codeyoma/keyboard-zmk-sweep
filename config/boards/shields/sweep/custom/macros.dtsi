@@ -25,7 +25,6 @@
 };
 
 
-
 / {
     macros {
 
@@ -45,8 +44,10 @@
 		};
 		*/
 
-		lang_ex: lang_change {
+		/omit-if-no-ref/ lang_ex: lang_change {
             compatible 		= "zmk,behavior-macro";
+			tap-ms			= <0>;
+			wait-ms			= <0>;
             #binding-cells	= <0>;
             bindings		=
 				<&macro_tap &kp RALT>,
