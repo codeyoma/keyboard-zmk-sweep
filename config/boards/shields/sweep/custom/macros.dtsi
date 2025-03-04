@@ -54,8 +54,10 @@
 				<&macro_tap &tog COLEMAK>;
         };
 
+		/*
         MACRO_(nerd_l, 1, 1, &kp LC(W) &kp H)
         MACRO_(nerd_r, 1, 1, &kp LC(W) &kp U)
+		*/
 
     };
 };
