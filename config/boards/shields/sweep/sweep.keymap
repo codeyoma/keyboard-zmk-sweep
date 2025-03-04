@@ -7,7 +7,7 @@
  /*
  references:
 	https://github.com/minusfive/zmk-config/blob/main/knucklehead/combos.dtsi
-	https://github.com/filterpaper/zmk-config/blob/main/config/cradio.keymap
+	https://github.com/filterpaper/zmk-config/blob/main/config/sweep.keymap
 	https://github.com/caksoylar/zmk-config/blob/main/config/combos.dtsi
  */
 

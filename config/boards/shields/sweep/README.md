@@ -1,13 +1,13 @@
-# Cradio
+# sweep
 
-Cradio is a firmware for a few 34 key keyboards, including Cradio, Hypergolic and Sweep.
+sweep is a firmware for a few 34 key keyboards, including sweep, Hypergolic and Sweep.
 
 ## Pin arrangement
 
-Some revisions of the aforementioned PCBs have slightly different pin arrangements compared to what's defined in [`cradio.dtsi`](./cradio.dtsi). If you need to swap a few keys for your particular PCB, you can easily reorder the `input-gpio` definition in your own keymap file (i.e. in `zmk-config/config/cradio.keymap`):
+Some revisions of the aforementioned PCBs have slightly different pin arrangements compared to what's defined in [`sweep.dtsi`](./sweep.dtsi). If you need to swap a few keys for your particular PCB, you can easily reorder the `input-gpio` definition in your own keymap file (i.e. in `zmk-config/config/sweep.keymap`):
 
 ```dts
-/* Adjusted Cradio pin arrangement */
+/* Adjusted sweep pin arrangement */
 /* The position of Q and B keys have been swapped */
 &kscan0 {
     input-gpios
