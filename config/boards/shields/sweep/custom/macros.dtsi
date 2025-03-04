@@ -3,13 +3,13 @@
  */
 
 #define MACRO_(NAME, TAP, WAIT, CELLS, BINDINGS, ...)	\
-	/omit-if-no-ref/ macro_##NAME: macro_##NAME {		\
+	/omit-if-no-ref/ NAME: macro_##NAME {				\
     label          = #NAME;								\
     compatible     = "zmk,behavior-macro";				\
     tap-ms         = <TAP>;								\
     wait-ms        = <WAIT>;							\
     #binding-cells = <CELLS>;							\
-	bindings       = <BINDINGS>;						\
+	bindings       = BINDINGS;							\
 	__VA_ARGS__ 										\
 };
 
@@ -32,9 +32,11 @@
 		};
 		*/
 
-        MACRO_(nerd_l, 1, 1, PARAM_ZERO, &kp LC(W) &kp H)
-        MACRO_(nerd_r, 1, 1, PARAM_ZERO, &kp LC(W) &kp U)
+        MACRO_(nerd_l, 1, 1, 0, (<&kp LC(W) &kp H>))
+        MACRO_(nerd_r, 1, 1, 0, (<&kp LC(W) &kp U>))
+        MACRO_(lang_ex, 1, 1, 0, (<&macro_tap &kp RALT>, <&macro_tap &tog COLEMAK>))
 
+		/*
 		lang_ex: lang_change {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -43,6 +45,7 @@
                 , <&macro_tap &tog COLEMAK>
                 ;
         };
+		*/
 
     };
 };

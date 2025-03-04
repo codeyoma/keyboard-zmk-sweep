@@ -54,13 +54,5 @@
         };
         */
 
-
-        td_gui_alt: tap_dance_gui_alt {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <TD_TAPPING_TERM_MS>;
-            bindings = <&kp LGUI>, <&kp LALT>;
-        };
-
     };
 };
