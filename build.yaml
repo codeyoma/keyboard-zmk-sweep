@@ -19,16 +19,16 @@
 ---
 include:
   - board: nice_nano_v2
-    shield: cradio_dongle dongle_display
+    shield: sweep_dongle dongle_display
   # - board: nice_nano_v2
-  #   shield: cradio_left
+  #   shield: sweep_left
 
   # - board: nice_nano_v2
-  #   shield: cradio_right
+  #   shield: sweep_right
 
 
   # - board: nice_nano_v2
-  #   shield: cradio_central_left
+  #   shield: sweep_central_left
 
   # - board: nice_nano_v2
   #   shield: settings_reset

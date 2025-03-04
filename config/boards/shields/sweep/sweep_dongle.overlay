@@ -5,7 +5,7 @@
  * https://github.com/englmaxi/zmk-dongle-display/tree/main
  */
 
-#include "cradio.dtsi"
+#include "sweep.dtsi"
 
 
 / {
