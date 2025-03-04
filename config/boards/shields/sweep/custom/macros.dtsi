@@ -8,7 +8,7 @@
     compatible     = "zmk,behavior-macro";				\
     tap-ms         = <TAP>;								\
     wait-ms        = <WAIT>;							\
-    binding-cells  = 0;							        \
+    #binding-cells = 0;							   		\
 	bindings       = __VA_ARGS__; 						\
 };
 
