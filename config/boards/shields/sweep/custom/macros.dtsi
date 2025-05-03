@@ -34,6 +34,8 @@
         MACRO_(	nerd_l, 1, 1, <&kp LC(W) &kp H>)
         MACRO_(	nerd_r, 1, 1, <&kp LC(W) &kp U>)
         MACRO_(lang_ex, 1, 1, <&macro_tap &kp RALT>, <&macro_tap &tog COLEMAK>)
+        MACRO_(	 focus, 1, 1, <&kp LC(F4)>)
+
 
     };
 };

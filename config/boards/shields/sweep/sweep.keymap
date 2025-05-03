@@ -43,10 +43,10 @@
 #define HM_RR	&hm LGUI
 #define HM_RP	&hm LCTRL
 
-#define TAPPING_TERM_MS		250
+#define TAPPING_TERM_MS		160
 #define LT_TAPPING_TERM_MS	250
 #define TD_TAPPING_TERM_MS	350
-#define QUICK_TAP_MS		140
+#define QUICK_TAP_MS		120
 #define GLOBAL_QUICK_TAP_MS	150
 #define IDLE_MS				100
 #define CB_MINIMUM_SPEED	70
