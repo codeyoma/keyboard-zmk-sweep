@@ -6,4 +6,4 @@ layout: { dts_layout: sweep_layouts.dtsi }
 - keymap draw sweep_keymap.yaml >sweep_keymap.ortho.svg
 -->
 
-![sweep_keymap.ortho.svg]
+![My Layout](./sweep_keymap.ortho.svg)
