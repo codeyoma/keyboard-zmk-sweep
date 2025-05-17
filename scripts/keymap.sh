@@ -1,6 +1,5 @@
 #!/bin/bash
 
-exit 1
 keymap parse -c 10 -z ./config/boards/shields/sweep/sweep.keymap >sweep_keymap.yaml
 
 TARGET_FILE="sweep_keymap.yaml"
