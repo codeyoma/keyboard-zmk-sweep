@@ -6,6 +6,6 @@
 - layout: { dts_layout: sweep_layouts.dtsi }
 -->
 
-![My Layout](./sweep_keymap.ortho.svg)
+![My Layout](./sweep_keymap.svg)
 
 
