@@ -71,7 +71,7 @@ layers:
     - VOL UP
     - NEXT
     - ''
-  - ['&sys_reset', '', '', OUT USB, OUT BLE, PP, MUTE, '', '', '']
+  - ['&sys_reset', '', '', '', '', PP, MUTE, '', '', '']
   - - {t: ▽, type: trans}
     - {type: held}
     - {type: held}
