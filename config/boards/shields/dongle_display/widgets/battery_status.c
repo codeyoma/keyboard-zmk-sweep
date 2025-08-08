@@ -75,7 +75,7 @@ static void set_battery_symbol(lv_obj_t *widget, struct battery_state state) {
     draw_battery(symbol, state.level, state.usb_present);
     if (SOURCE_OFFSET == 1 && state.source == 0) {
         // Prefix 'D' for the dongle battery
-        lv_label_set_text_fmt(label, "D %3u%%", state.level);
+        lv_label_set_text_fmt(label, "D%4u%%", state.level);
     } else {
         lv_label_set_text_fmt(label, "%4u%%", state.level);
     }
@@ -139,7 +139,8 @@ ZMK_SUBSCRIPTION(widget_dongle_battery_status, zmk_usb_conn_state_changed);
 int zmk_widget_dongle_battery_status_init(struct zmk_widget_dongle_battery_status *widget, lv_obj_t *parent) {
     widget->obj = lv_obj_create(parent);
 
-    lv_obj_set_size(widget->obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+    // Give the container explicit width so the label (with leading 'D') isn't clipped
+    lv_obj_set_size(widget->obj, 40, LV_SIZE_CONTENT);
     
     for (int i = 0; i < ZMK_SPLIT_BLE_PERIPHERAL_COUNT + SOURCE_OFFSET; i++) {
         lv_obj_t *image_canvas = lv_canvas_create(widget->obj);
@@ -148,7 +149,8 @@ int zmk_widget_dongle_battery_status_init(struct zmk_widget_dongle_battery_statu
         lv_canvas_set_buffer(image_canvas, battery_image_buffer[i], 5, 8, LV_IMG_CF_TRUE_COLOR);
 
         lv_obj_align(image_canvas, LV_ALIGN_TOP_RIGHT, 0, i * 10);
-        lv_obj_align(battery_label, LV_ALIGN_TOP_RIGHT, -7, i * 10);
+        // Move label a bit further left from the icon to make room for a leading 'D'
+        lv_obj_align(battery_label, LV_ALIGN_TOP_RIGHT, -10, i * 10);
 
         lv_obj_add_flag(image_canvas, LV_OBJ_FLAG_HIDDEN);
         lv_obj_add_flag(battery_label, LV_OBJ_FLAG_HIDDEN);
