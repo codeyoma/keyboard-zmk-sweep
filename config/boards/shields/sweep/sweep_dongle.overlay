@@ -5,13 +5,12 @@
  * https://github.com/englmaxi/zmk-dongle-display/tree/main
  */
 
-/*
-https://github.com/englmaxi/zmk-config/blob/master/boards/shields/sweep/sweep_central_dongle.overlay
-*/
+#include "sweep.dtsi"
 
 / {
     chosen {
         zmk,kscan = &mock_kscan;
+        zephyr,display = &oled;
     };
 
     mock_kscan: mock_kscan_0 {
