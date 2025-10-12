@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+/*
 &pinctrl {
     spi0_default: spi0_default {
         group1 {
@@ -33,6 +34,7 @@ nice_view_spi: &spi0 {
 &pro_micro_i2c {
     status = "disabled";
 };
+*/
 
 &nice_view_spi {
     status = "okay";
