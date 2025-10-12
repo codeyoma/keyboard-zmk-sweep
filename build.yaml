@@ -23,8 +23,8 @@ include:
     artifact-name: sweep_dongle_nice_view
 
   - board: nice_nano_v2
-    shield: sweep_dongle nice_view_adapter nice_view
-    artifact-name: sweep_dongle_nice_view_test
+    shield: sweep_dongle nice_view_adapter dongle_display_view_pro_micro
+    artifact-name: sweep_dongle_nice_view_17
 
   - board: nice_nano_v2
     shield: sweep_left
