@@ -5,15 +5,24 @@
  * https://github.com/englmaxi/zmk-dongle-display/tree/main
  */
 
-#include "sweep.dtsi"
-
 /*
 https://github.com/englmaxi/zmk-config/blob/master/boards/shields/sweep/sweep_central_dongle.overlay
 */
 
+&nice_view_spi {
+    status = "okay";
+    nice_view: ls0xx@0 {
+        compatible = "sharp,ls0xx";
+        spi-max-frequency = <1000000>;
+        reg = <0>;
+        width = <160>;
+        height = <68>;
+    };
+};
+
 / {
     chosen {
-        zephyr,display = &oled;
+        zephyr,display = &nice_view;
         zmk,kscan = &mock_kscan;
     };
 
@@ -22,25 +31,5 @@ https://github.com/englmaxi/zmk-config/blob/master/boards/shields/sweep/sweep_ce
         columns = <0>;
         rows = <0>;
         events = <0>;
-    };
-
-};
-
-&pro_micro_i2c {
-    status = "okay";
-
-    oled: ssd1306@3c {
-        compatible = "solomon,ssd1306fb";
-        reg = <0x3c>;
-        width = <128>;
-        height = <64>;
-        segment-offset = <0>;
-        page-offset = <0>;
-        display-offset = <0>;
-        multiplex-ratio = <63>;
-        segment-remap;
-        com-invdir;
-        inversion-on;
-        prechargep = <0x22>;
     };
 };
