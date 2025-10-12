@@ -11,6 +11,7 @@
 https://github.com/englmaxi/zmk-config/blob/master/boards/shields/sweep/sweep_central_dongle.overlay
 */
 
+/*
 / {
     chosen {
         zmk,kscan = &mock_kscan;
@@ -23,6 +24,7 @@ https://github.com/englmaxi/zmk-config/blob/master/boards/shields/sweep/sweep_ce
         events = <0>;
     };
 };
+*/
 
 &pro_micro_i2c {
     status = "okay";
