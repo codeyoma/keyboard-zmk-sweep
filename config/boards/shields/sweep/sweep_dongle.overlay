@@ -11,7 +11,6 @@
 https://github.com/englmaxi/zmk-config/blob/master/boards/shields/sweep/sweep_central_dongle.overlay
 */
 
-/* // written in dongle_display_view_pro_micro.overlay
 / {
     chosen {
         zmk,kscan = &mock_kscan;
@@ -43,21 +42,4 @@ https://github.com/englmaxi/zmk-config/blob/master/boards/shields/sweep/sweep_ce
         inversion-on;
         prechargep = <0x22>;
     };
-
-    oled: ssd1306@3c {
-        compatible = "sinowealth,sh1106";
-        reg = <0x3c>;
-        width = <128>;
-        height = <64>;
-        segment-offset = <0>;
-        page-offset = <0>;
-        display-offset = <0>;
-        multiplex-ratio = <63>;
-        segment-remap;
-        com-invdir;
-        inversion-on;
-        prechargep = <0x22>;
-    };
 };
-
-*/
