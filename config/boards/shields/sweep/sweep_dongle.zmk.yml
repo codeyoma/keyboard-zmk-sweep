@@ -1,9 +1,0 @@
-file_format: "1"
-id: sweep_dongle
-name: sweep/Sweep Dongle
-type: shield
-url: https://github.com/davidphilipbarr/Sweep
-requires: [nice_nano_v2, dongle_display]
-features:
-  - keys
-  - display
