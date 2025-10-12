@@ -5,7 +5,10 @@
  * https://github.com/englmaxi/zmk-dongle-display/tree/main
  */
 
-#include "sweep.dtsi"
+
+/*
+ #include "sweep.dtsi"
+*/
 
 / {
     chosen {
