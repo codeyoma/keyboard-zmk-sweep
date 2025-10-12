@@ -9,47 +9,8 @@
 https://github.com/englmaxi/zmk-config/blob/master/boards/shields/sweep/sweep_central_dongle.overlay
 */
 
-// Define SPI bus for nice view
-&pinctrl {
-    spi0_default: spi0_default {
-        group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 13)>,
-                    <NRF_PSEL(SPIM_MOSI, 0, 15)>,
-                    <NRF_PSEL(SPIM_MISO, 0, 14)>;
-        };
-    };
-    spi0_sleep: spi0_sleep {
-        group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 13)>,
-                    <NRF_PSEL(SPIM_MOSI, 0, 15)>,
-                    <NRF_PSEL(SPIM_MISO, 0, 14)>;
-            low-power-enable;
-        };
-    };
-};
-
-nice_view_spi: &spi0 {
-    compatible = "nordic,nrf-spim";
-    pinctrl-0 = <&spi0_default>;
-    pinctrl-1 = <&spi0_sleep>;
-    pinctrl-names = "default", "sleep";
-    cs-gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;  // Pin P0.06 as CS
-};
-
-&nice_view_spi {
-    status = "okay";
-    nice_view: ls0xx@0 {
-        compatible = "sharp,ls0xx";
-        spi-max-frequency = <1000000>;
-        reg = <0>;
-        width = <160>;
-        height = <68>;
-    };
-};
-
 / {
     chosen {
-        zephyr,display = &nice_view;
         zmk,kscan = &mock_kscan;
     };
 
