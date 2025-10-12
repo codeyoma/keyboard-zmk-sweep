@@ -6,8 +6,8 @@ if SHIELD_SWEEP_DONGLE
 		default "Sweep Dongle"
 	config ZMK_SPLIT_ROLE_CENTRAL
 		default y
-# config ZMK_USB
-#   default y
+  config ZMK_USB
+    default y
 endif
 
 if SHIELD_SWEEP_CENTRAL_LEFT
