@@ -19,7 +19,7 @@
 ---
 include:
   - board: nice_nano_v2
-    shield: sweep_dongle nice_view_adapter dongle_display_view_pro_micro
+    shield: sweep_dongle dongle_display_view_pro_micro
     # shield: sweep_dongle dongle_display
 
   # - board: nice_nano_v2
