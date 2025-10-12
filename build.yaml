@@ -24,12 +24,16 @@ include:
 
   - board: nice_nano_v2
     shield: sweep_left
+    artifact-name: sweep_left
 
   - board: nice_nano_v2
     shield: sweep_right
+    artifact-name: sweep_right
 
   # - board: nice_nano_v2
   #   shield: sweep_central_left
 
   - board: nice_nano_v2
     shield: settings_reset
+    artifact-name: sweep_reset
+

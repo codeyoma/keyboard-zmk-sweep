@@ -5,6 +5,8 @@
  * https://github.com/englmaxi/zmk-dongle-display/tree/main
  */
 
+include "sweep.dtsi"
+
 / {
     chosen {
         zmk,kscan = &mock_kscan;
