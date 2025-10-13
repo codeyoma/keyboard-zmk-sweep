@@ -62,7 +62,7 @@ lv_obj_t *zmk_display_status_screen() {
   // lv_obj_align(zmk_widget_layer_status_obj(&layer_status_widget),
   // LV_ALIGN_BOTTOM_LEFT, 6, 0);
   lv_obj_align(zmk_widget_layer_status_obj(&layer_status_widget),
-                LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+                LV_ALIGN_BOTTOM_RIGHT, 0, -3);
               //  LV_ALIGN_BOTTOM_LEFT, 2, -27);
 
   zmk_widget_dongle_battery_status_init(&dongle_battery_status_widget, screen);
