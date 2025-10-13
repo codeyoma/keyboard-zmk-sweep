@@ -135,6 +135,9 @@ ZMK_SUBSCRIPTION(widget_bongo_cat, zmk_wpm_state_changed);
 int zmk_widget_bongo_cat_init(struct zmk_widget_bongo_cat *widget, lv_obj_t *parent) {
     widget->obj = lv_animimg_create(parent);
     lv_obj_center(widget->obj);
+    
+    // 크기를 1.5배로 확대
+    lv_obj_set_style_transform_zoom(widget->obj, 150, LV_PART_MAIN);
 
     sys_slist_append(&widgets, &widget->node);
 
