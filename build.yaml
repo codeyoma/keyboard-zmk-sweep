@@ -18,22 +18,22 @@
 #
 ---
 include:
-  - board: nice_nano_v2
+  - board: nice_nano
     shield: sweep_dongle nice_view_adapter dongle_display
     artifact-name: sweep_dongle_nice_view
 
-  # - board: nice_nano_v2
+  # - board: nice_nano
   #   shield: sweep_left
   #   artifact-name: sweep_left
 
-  # - board: nice_nano_v2
+  # - board: nice_nano
   #   shield: sweep_right
   #   artifact-name: sweep_right
 
-  # - board: nice_nano_v2
+  # - board: nice_nano
   #   shield: sweep_central_left
 
-  - board: nice_nano_v2
+  - board: nice_nano
     shield: settings_reset
     artifact-name: sweep_reset
 
