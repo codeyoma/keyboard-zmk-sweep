@@ -29,6 +29,18 @@
             bindings                = <&kp>, <&kp>;
         };
 
+        // Alt home row mod: holds only after the tapping term, since Option + letter types
+        // special characters on macOS (get_permissive_hold on the Charybdis QMK keymap)
+        hm_alt: home_row_mods_alt {
+            compatible              = "zmk,behavior-hold-tap";
+            #binding-cells          = <2>;
+            flavor                  = "tap-preferred";
+            require-prior-idle-ms   = <IDLE_MS>;
+            tapping-term-ms         = <TAPPING_TERM_MS>;
+            quick-tap-ms            = <QUICK_TAP_MS>;
+            bindings                = <&kp>, <&kp>;
+        };
+
         td_sqt: tap_dance_quote {
             compatible              = "zmk,behavior-tap-dance";
             #binding-cells          = <0>;

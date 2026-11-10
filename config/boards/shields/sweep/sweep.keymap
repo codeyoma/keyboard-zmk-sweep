@@ -46,21 +46,21 @@
 
 #define HM_LP	&hm LCTRL
 #define HM_LR	&hm LGUI
-#define HM_LM	&hm LALT
+#define HM_LM	&hm_alt LALT
 #define HM_LI	&hm LSHFT
 
-#define HM_RI	&hm LSHFT
-#define HM_RM	&hm LALT
+#define HM_RI	&hm RSHFT
+#define HM_RM	&hm_alt RALT
 #define HM_RR	&hm LGUI
 #define HM_RP	&hm LCTRL
 
-#define TAPPING_TERM_MS		220
-#define LT_TAPPING_TERM_MS	250
-#define TD_TAPPING_TERM_MS	350
-#define QUICK_TAP_MS		140
+#define TAPPING_TERM_MS		220	// Charybdis QMK TAPPING_TERM
+#define LT_TAPPING_TERM_MS	220	// TAPPING_TERM
+#define TD_TAPPING_TERM_MS	220	// TAPPING_TERM
+#define QUICK_TAP_MS		140	// QUICK_TAP_TERM
 #define GLOBAL_QUICK_TAP_MS	150
-#define IDLE_MS				125
-#define CB_MINIMUM_SPEED	70
+#define IDLE_MS				150	// FLOW_TAP_TERM
+#define CB_MINIMUM_SPEED	50	// COMBO_TERM (QMK default)
 #define	DEFAULT_SPEED		50
 
 #define PARAM_ZERO	0

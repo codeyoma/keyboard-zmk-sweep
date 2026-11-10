@@ -8,8 +8,8 @@ layers:
     - {t: F, h: LSHFT}
     - G
     - H
-    - {t: J, h: LSHFT}
-    - {t: K, h: LALT}
+    - {t: J, h: RSHFT}
+    - {t: K, h: RALT}
     - {t: L, h: LGUI}
     - {t: ;, h: LCTRL}
   - [Z, X, C, V, B, N, M, ',', ., /]
@@ -25,8 +25,8 @@ layers:
     - {t: T, h: LSHFT}
     - D
     - H
-    - {t: N, h: LSHFT}
-    - {t: E, h: LALT}
+    - {t: N, h: RSHFT}
+    - {t: E, h: RALT}
     - {t: I, h: LGUI}
     - {t: O, h: LCTRL}
   - [Z, X, C, V, B, K, M, ',', ., /]
@@ -35,7 +35,7 @@ layers:
     - Raise
     - SPACE
   Lower:
-  - [CAPS, HOME, PG UP, PG DN, END, '', '7', '8', '9', BSPC]
+  - [GLOBE, HOME, PG UP, PG DN, END, '', '7', '8', '9', BSPC]
   - ['[', ']', '{', '}', 'Gui+[', 'Gui+]', '4', '5', '6', '&td_sqt']
   - [SPACE, '', (, ), '', '', '1', '2', '3', \]
   - - {t: ▽, type: trans}
@@ -210,7 +210,7 @@ layers:
 combos:
 - p: [30, 31]
   k: ESC
-  l: [yoma, ARST, Raise]
+  l: [yoma, ARST, Lower]
 - p: [32, 33]
   k: ENTER
   l: [yoma, ARST, Lower]
@@ -237,10 +237,10 @@ combos:
   l: [yoma, ARST, Lower]
 - p: [20, 21]
   k: Ctl+Sft+TAB
-  l: [yoma, ARST]
+  l: [yoma, ARST, Lower]
 - p: [21, 22]
   k: Ctl+TAB
-  l: [yoma, ARST]
+  l: [yoma, ARST, Lower]
 - p: [0, 10]
   k: '!'
   l: [yoma, ARST, Lower]
@@ -270,4 +270,13 @@ combos:
   l: [yoma, ARST, Lower]
 - p: [9, 19]
   k: '`'
+  l: [yoma, ARST, Lower]
+- p: [26, 27, 28]
+  k: Left click
+  l: [yoma, ARST, Lower]
+- p: [27, 28, 29]
+  k: Right click
+  l: [yoma, ARST, Lower]
+- p: [26, 27, 28, 29]
+  k: Scroll
   l: [yoma, ARST, Lower]
