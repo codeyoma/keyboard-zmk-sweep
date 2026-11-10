@@ -5,6 +5,7 @@
  */
 
 #include <zephyr/kernel.h>
+#include <zephyr/bluetooth/conn.h>
 #include <zephyr/bluetooth/services/bas.h>
 
 #include <zephyr/logging/log.h>
@@ -26,13 +27,56 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
     #define SOURCE_OFFSET 0
 #endif
 
+#ifndef ZMK_SPLIT_BLE_PERIPHERAL_COUNT
+#  define ZMK_SPLIT_BLE_PERIPHERAL_COUNT 0
+#endif
+
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
+
+#if IS_ENABLED(CONFIG_ZMK_SPLIT_BLE) && IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
+// The central raises no per-half connection event, so look the half up among the live BLE
+// connections. This function lives in ZMK's split/bluetooth/central.c without a public
+// header; recheck it when moving to a newer ZMK release.
+int peripheral_slot_index_for_conn(struct bt_conn *conn);
+
+struct peripheral_conn_lookup {
+    uint8_t slot;
+    bool connected;
+};
+
+static void find_peripheral_conn(struct bt_conn *conn, void *data) {
+    struct peripheral_conn_lookup *lookup = data;
+    struct bt_conn_info info;
+
+    if (bt_conn_get_info(conn, &info) < 0 || info.role != BT_CONN_ROLE_CENTRAL ||
+        info.state != BT_CONN_STATE_CONNECTED) {
+        return;
+    }
+    if (peripheral_slot_index_for_conn(conn) == lookup->slot) {
+        lookup->connected = true;
+    }
+}
+
+static bool peripheral_is_connected(uint8_t slot) {
+    struct peripheral_conn_lookup lookup = {.slot = slot, .connected = false};
+    bt_conn_foreach(BT_CONN_TYPE_LE, find_peripheral_conn, &lookup);
+    return lookup.connected;
+}
+#else
+static bool peripheral_is_connected(uint8_t slot) { return true; }
+#endif
 
 struct battery_state {
     uint8_t source;
     uint8_t level;
     bool usb_present;
+    bool connected;
 };
+
+struct battery_object {
+    lv_obj_t *symbol;
+    lv_obj_t *label;
+} battery_objects[ZMK_SPLIT_BLE_PERIPHERAL_COUNT + SOURCE_OFFSET];
     
 static lv_color_t battery_image_buffer[ZMK_SPLIT_BLE_PERIPHERAL_COUNT + SOURCE_OFFSET][5 * 8];
 
@@ -69,15 +113,19 @@ static void set_battery_symbol(lv_obj_t *widget, struct battery_state state) {
         return;
     }
     LOG_DBG("source: %d, level: %d, usb: %d", state.source, state.level, state.usb_present);
-    lv_obj_t *symbol = lv_obj_get_child(widget, state.source * 2);
-    lv_obj_t *label = lv_obj_get_child(widget, state.source * 2 + 1);
+    lv_obj_t *symbol = battery_objects[state.source].symbol;
+    lv_obj_t *label = battery_objects[state.source].label;
 
     draw_battery(symbol, state.level, state.usb_present);
     lv_label_set_text_fmt(label, "%4u%%", state.level);
     
-    if (state.level > 0 || state.usb_present) {
+    // A connected device stays visible even at 0% (an empty battery). A half that is off or out
+    // of range is hidden: it also reports 0% when it disconnects.
+    if (state.connected) {
         lv_obj_clear_flag(symbol, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_move_foreground(symbol);
         lv_obj_clear_flag(label, LV_OBJ_FLAG_HIDDEN);
+        lv_obj_move_foreground(label);
     } else {
         lv_obj_add_flag(symbol, LV_OBJ_FLAG_HIDDEN);
         lv_obj_add_flag(label, LV_OBJ_FLAG_HIDDEN);
@@ -94,6 +142,7 @@ static struct battery_state peripheral_battery_status_get_state(const zmk_event_
     return (struct battery_state){
         .source = ev->source + SOURCE_OFFSET,
         .level = ev->state_of_charge,
+        .connected = peripheral_is_connected(ev->source),
     };
 }
 
@@ -102,6 +151,7 @@ static struct battery_state central_battery_status_get_state(const zmk_event_t *
     return (struct battery_state) {
         .source = 0,
         .level = (ev != NULL) ? ev->state_of_charge : zmk_battery_state_of_charge(),
+        .connected = true,
 #if IS_ENABLED(CONFIG_USB_DEVICE_STACK)
         .usb_present = zmk_usb_is_powered(),
 #endif /* IS_ENABLED(CONFIG_USB_DEVICE_STACK) */
@@ -145,8 +195,16 @@ int zmk_widget_dongle_battery_status_init(struct zmk_widget_dongle_battery_statu
         lv_obj_align(image_canvas, LV_ALIGN_TOP_RIGHT, 0, i * 10);
         lv_obj_align(battery_label, LV_ALIGN_TOP_RIGHT, -7, i * 10);
 
-        lv_obj_add_flag(image_canvas, LV_OBJ_FLAG_HIDDEN);
-        lv_obj_add_flag(battery_label, LV_OBJ_FLAG_HIDDEN);
+        // Halves stay hidden until they connect and report their battery level.
+        if (i >= SOURCE_OFFSET) {
+            lv_obj_add_flag(image_canvas, LV_OBJ_FLAG_HIDDEN);
+            lv_obj_add_flag(battery_label, LV_OBJ_FLAG_HIDDEN);
+        }
+
+        battery_objects[i] = (struct battery_object){
+            .symbol = image_canvas,
+            .label = battery_label,
+        };
     }
 
     sys_slist_append(&widgets, &widget->node);

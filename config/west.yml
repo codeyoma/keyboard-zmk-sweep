@@ -2,27 +2,16 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    - name: mctechnology17
-      url-base: https://github.com/mctechnology17
     # Additional modules containing boards/shields/custom code can be listed here as well
     # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
   projects:
+    # Pinned to the latest ZMK release. ZMK main moved to Zephyr 4.1 (board names such as
+    # nice_nano//zmk), which breaks this config. Change v0.3 to v0.4 here and in
+    # .github/workflows/build.yml together once ZMK v0.4 is released.
     - name: zmk
       remote: zmkfirmware
-      revision: main
+      revision: v0.3
       import: app/west.yml
-
-    - name: zmk-config
-      remote: mctechnology17
-      revision: main
-
-    - name: zmk-dongle-display-view
-      remote: mctechnology17
-      revision: main
-
-    - name: zmk-nice-oled
-      remote: mctechnology17
-      revision: main
 
   self:
     path: config
