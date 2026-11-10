@@ -80,7 +80,7 @@ layers:
     - VOL UP
     - NEXT
     - ''
-  - ['&sys_reset', '', '', '', '', PP, MUTE, '', '', '']
+  - ['&sys_reset', '', '', '', '', PP, MUTE, '', '', KeyLay]
   - - {t: ▽, type: trans}
     - {type: held}
     - {type: held}

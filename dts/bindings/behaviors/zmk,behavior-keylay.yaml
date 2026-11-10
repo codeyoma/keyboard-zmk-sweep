@@ -1,0 +1,5 @@
+description: The KeyLay key, opens or closes the KeyLay cheat sheet on the computer (src/keylay.c)
+
+compatible: "zmk,behavior-keylay"
+
+include: zero_param.yaml

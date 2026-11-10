@@ -3,6 +3,8 @@
 parse_config:
   # Legends for the Mouse layer, matched on the raw ZMK binding.
   raw_binding_map:
+    # The KeyLay key: opens or closes the KeyLay cheat sheet
+    "&keylay": KeyLay
     "&mmv MOVE_UP": Move up
     "&mmv MOVE_DOWN": Move down
     "&mmv MOVE_LEFT": Move left

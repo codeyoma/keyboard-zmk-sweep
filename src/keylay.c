@@ -3,7 +3,8 @@
  * through a small GATT service. See firmware/PROTOCOL.md in the KeyLay project.
  *
  * The state characteristic is readable and sends a notification whenever the layer state or
- * a battery level changes. On a split keyboard this runs on the central only; peripheral
+ * a battery level changes. The &keylay behavior (the KeyLay key in the keymap) sends a
+ * command on the same characteristic that opens or closes the app's cheat sheet. On a split keyboard this runs on the central only; peripheral
  * battery levels need CONFIG_ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_FETCHING.
  *
  * SPDX-License-Identifier: MIT
@@ -17,6 +18,8 @@
 #include <zephyr/logging/log.h>
 #include <zephyr/sys/byteorder.h>
 
+#include <drivers/behavior.h>
+#include <zmk/behavior.h>
 #include <zmk/event_manager.h>
 #include <zmk/events/layer_state_changed.h>
 #include <zmk/keymap.h>
@@ -35,6 +38,8 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #define KEYLAY_MAGIC 0x4B
 #define KEYLAY_VERSION 0x01
 #define KEYLAY_MSG_STATE 0x01
+#define KEYLAY_MSG_COMMAND 0x03
+#define KEYLAY_CMD_TOGGLE_POPOVER 0x01
 #define KEYLAY_BATTERY_UNKNOWN 0xFF
 #define KEYLAY_HEADER_LEN 9
 #define KEYLAY_MAX_BATTERIES 4
@@ -116,6 +121,45 @@ static void keylay_notify_work_cb(struct k_work *work) {
         LOG_DBG("KeyLay notification failed: %d", err);
     }
 }
+
+/* The KeyLay key: asks the app to open or close its cheat sheet */
+static void keylay_command_work_cb(struct k_work *work);
+static K_WORK_DELAYABLE_DEFINE(keylay_command_work, keylay_command_work_cb);
+
+static void keylay_command_work_cb(struct k_work *work) {
+    uint8_t msg[] = {KEYLAY_MAGIC, KEYLAY_VERSION, KEYLAY_MSG_COMMAND, KEYLAY_CMD_TOGGLE_POPOVER};
+    int err = bt_gatt_notify(NULL, &keylay_svc.attrs[1], msg, sizeof(msg));
+    if (err == -ENOMEM || err == -ENOBUFS) {
+        k_work_reschedule(&keylay_command_work, K_MSEC(KEYLAY_RETRY_MS));
+    } else if (err && err != -ENOTCONN) {
+        LOG_DBG("KeyLay command failed: %d", err);
+    }
+}
+
+#define DT_DRV_COMPAT zmk_behavior_keylay
+
+#if DT_HAS_COMPAT_STATUS_OKAY(DT_DRV_COMPAT)
+
+static int keylay_binding_pressed(struct zmk_behavior_binding *binding,
+                                  struct zmk_behavior_binding_event event) {
+    k_work_reschedule(&keylay_command_work, K_NO_WAIT);
+    return ZMK_BEHAVIOR_OPAQUE;
+}
+
+static int keylay_binding_released(struct zmk_behavior_binding *binding,
+                                   struct zmk_behavior_binding_event event) {
+    return ZMK_BEHAVIOR_OPAQUE;
+}
+
+static const struct behavior_driver_api keylay_driver_api = {
+    .binding_pressed = keylay_binding_pressed,
+    .binding_released = keylay_binding_released,
+};
+
+BEHAVIOR_DT_INST_DEFINE(0, NULL, NULL, NULL, NULL, POST_KERNEL,
+                        CONFIG_KERNEL_INIT_PRIORITY_DEFAULT, &keylay_driver_api);
+
+#endif /* DT_HAS_COMPAT_STATUS_OKAY(DT_DRV_COMPAT) */
 
 static int keylay_listener(const zmk_event_t *eh) {
     /* Coalesces bursts (e.g. a tri-layer change): the work item sends the latest state */

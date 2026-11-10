@@ -73,6 +73,12 @@
 
 / {
 	behaviors {
+		// The KeyLay key: opens or closes the KeyLay cheat sheet, see src/keylay.c
+		keylay: keylay {
+			compatible = "zmk,behavior-keylay";
+			#binding-cells = <0>;
+		};
+
 		// Steps the mouse key speed level, see src/mouse_speed.c
 		mouse_speed: mouse_speed {
 			compatible = "zmk,behavior-mouse-speed";
