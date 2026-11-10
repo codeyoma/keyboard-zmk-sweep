@@ -1,0 +1,22 @@
+# Options for the code in this repository (see zephyr/module.yml).
+
+config ZMK_MOUSE_SPEED
+    bool "Mouse key speed levels (&mouse_speed)"
+    default y
+    depends on DT_HAS_ZMK_BEHAVIOR_MOUSE_SPEED_ENABLED
+    depends on ZMK_POINTING
+    depends on !ZMK_SPLIT || ZMK_SPLIT_ROLE_CENTRAL
+
+if ZMK_MOUSE_SPEED
+
+config ZMK_MOUSE_SPEED_LEVELS
+    int "Number of mouse key speed levels"
+    default 4
+    help
+      Level N moves at N / ZMK_MOUSE_SPEED_LEVELS of the full mouse key speed.
+
+config ZMK_MOUSE_SPEED_DEFAULT_LEVEL
+    int "Mouse key speed level before any level has been saved"
+    default 2
+
+endif

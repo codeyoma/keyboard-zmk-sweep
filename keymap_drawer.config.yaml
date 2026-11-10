@@ -16,3 +16,4 @@ parse_config:
     "&mkp MCLK": Middle click
     "&mkp MB4": Back
     "&mkp MB5": Forward
+    "&mouse_speed": Speed level

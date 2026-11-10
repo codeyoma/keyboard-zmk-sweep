@@ -10,11 +10,11 @@
 		label = "Mouse";
 		bindings = <
 //	╭───────────────┬───────────────┬───────────────┬───────────────┬───────────────╮   ╭───────────────┬───────────────┬───────────────┬───────────────┬───────────────╮
-	XXXXXXXX        XXXXXXXX        &mmv MOVE_UP    XXXXXXXX        XXXXXXXX            XXXXXXXX        XXXXXXXX        XXXXXXXX        XXXXXXXX        XXXXXXXX
+	XXXXXXXX        XXXXXXXX        &mmv MOVE_UP    XXXXXXXX        &tog MOUSE          XXXXXXXX        XXXXXXXX        XXXXXXXX        XXXXXXXX        XXXXXXXX
 //	├───────────────┼───────────────┼───────────────┼───────────────┼───────────────┤   ├───────────────├───────────────┼───────────────┼───────────────┼───────────────┤
-	XXXXXXXX        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT &tog MOUSE          &mkp MB4        &mkp LCLK       &mkp RCLK       &mkp MCLK       &mkp MB5
+	XXXXXXXX        &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT XXXXXXXX            &mkp MB4        &mkp LCLK       &mkp RCLK       &mkp MCLK       &mkp MB5
 //	├───────────────┼───────────────┼───────────────┼───────────────┼───────────────┤   ├───────────────├───────────────┼───────────────┼───────────────┼───────────────┤
-	&kp LCTRL       &kp LGUI        &kp LALT        &kp LSHFT       XXXXXXXX            &msc SCRL_LEFT  &msc SCRL_DOWN  &msc SCRL_UP    &msc SCRL_RIGHT XXXXXXXX
+	&kp LCTRL       &kp LGUI        &kp LALT        &kp LSHFT       XXXXXXXX            &mouse_speed    &mo SCROLL      XXXXXXXX        XXXXXXXX        &mo SNIPE
 //	╰───────────────┴───────────────┼───────────────┼───────────────┼───────────────┤   ├───────────────├───────────────┼───────────────┼───────────────┴───────────────╯
 	       											________        ________           	________		________
 //                                                  ╰───────────────┴───────────────╯   ╰───────────────┴───────────────╯

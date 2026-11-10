@@ -1,0 +1,15 @@
+description: |
+  Scales input values by a mouse key speed level (src/mouse_speed.c). The parameter is the
+  level to use: 0 for the current level, or a fixed level such as 1 for sniping.
+
+compatible: "zmk,input-processor-mouse-speed"
+
+include: ip_one_param.yaml
+
+properties:
+  type:
+    type: int
+    required: true
+  codes:
+    type: array
+    required: true

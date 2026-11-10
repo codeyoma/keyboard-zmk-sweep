@@ -1,0 +1,5 @@
+description: Steps the mouse key speed level (src/mouse_speed.c), wrapping back to the first level
+
+compatible: "zmk,behavior-mouse-speed"
+
+include: zero_param.yaml
