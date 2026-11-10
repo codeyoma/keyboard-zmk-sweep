@@ -44,7 +44,16 @@ layers:
     - '0'
   Raise:
   - [F9, F10, F11, F12, '', HOME, PG DN, PG UP, END, BSPC]
-  - [F5, F6, F7, F8, '', LEFT, DOWN, UP, RIGHT, '&focus']
+  - - F5
+    - F6
+    - F7
+    - F8
+    - {t: Mouse, h: toggle}
+    - LEFT
+    - DOWN
+    - UP
+    - RIGHT
+    - '&focus'
   - [F1, F2, F3, F4, '', INS, DEL, '', '', '']
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -76,6 +85,23 @@ layers:
     - {type: held}
     - {type: held}
     - Test
+  Mouse:
+  - ['', '', Move up, '', '', '', '', '', '', '']
+  - - ''
+    - Move left
+    - Move down
+    - Move right
+    - {t: Mouse, h: toggle}
+    - Back
+    - Left click
+    - Right click
+    - Middle click
+    - Forward
+  - [LCTRL, LGUI, LALT, LSHFT, '', Scroll left, Scroll down, Scroll up, Scroll right, '']
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
   Test:
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}

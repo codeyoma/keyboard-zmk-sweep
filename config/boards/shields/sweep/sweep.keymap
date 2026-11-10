@@ -15,6 +15,7 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
+#include <dt-bindings/zmk/pointing.h>
 
 #define ALL		(-1)
 #define NONE	0
@@ -23,15 +24,16 @@
 #define LOWER	2
 #define RAISE	3
 #define ADJUST	4
-#define TEST	5
+#define MOUSE	5
+#define TEST	6
 
 #define ________	&trans
 #define XXXXXXXX 	&none
 
 #define FOCUS_NEXT	&kp LC(F4)
 #define FOCUS_MENU	&kp LC(F2)
-#define MOVE_LEFT	&kp LG(LBKT)
-#define MOVE_RIGHT	&kp LG(RBKT)
+#define GO_BACK		&kp LG(LBKT)
+#define GO_FORWARD	&kp LG(RBKT)
 
 #define HM_LP	&hm LCTRL
 #define HM_LR	&hm LGUI
@@ -64,7 +66,8 @@
 #include "layer/L2-lower.dtsi"
 #include "layer/L3-raise.dtsi"
 #include "layer/L4-adjust.dtsi"
-#include "layer/L5-test.dtsi"
+#include "layer/L5-mouse.dtsi"
+#include "layer/L6-test.dtsi"
 
 / {
 	conditional_layers {

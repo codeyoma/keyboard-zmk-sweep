@@ -1,0 +1,18 @@
+# keymap-drawer settings used by scripts/keymap.sh.
+# Only the entries below differ from keymap-drawer's defaults.
+parse_config:
+  # Legends for the Mouse layer, matched on the raw ZMK binding.
+  raw_binding_map:
+    "&mmv MOVE_UP": Move up
+    "&mmv MOVE_DOWN": Move down
+    "&mmv MOVE_LEFT": Move left
+    "&mmv MOVE_RIGHT": Move right
+    "&msc SCRL_UP": Scroll up
+    "&msc SCRL_DOWN": Scroll down
+    "&msc SCRL_LEFT": Scroll left
+    "&msc SCRL_RIGHT": Scroll right
+    "&mkp LCLK": Left click
+    "&mkp RCLK": Right click
+    "&mkp MCLK": Middle click
+    "&mkp MB4": Back
+    "&mkp MB5": Forward

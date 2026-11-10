@@ -1,6 +1,6 @@
 #!/bin/bash
 
-keymap parse -c 10 -z ./config/boards/shields/sweep/sweep.keymap >sweep_keymap.yaml
+keymap -c keymap_drawer.config.yaml parse -c 10 -z ./config/boards/shields/sweep/sweep.keymap >sweep_keymap.yaml
 
 TARGET_FILE="sweep_keymap.yaml"
 NEW_FIRST="layout: { dts_layout: sweep_layouts.dtsi }"
@@ -11,4 +11,4 @@ tail -n +2 "$TARGET_FILE" | {
     cat
 } >"$TARGET_FILE.tmp" && mv "$TARGET_FILE.tmp" "$TARGET_FILE"
 
-keymap draw sweep_keymap.yaml >sweep_keymap.svg
+keymap -c keymap_drawer.config.yaml draw sweep_keymap.yaml >sweep_keymap.svg
