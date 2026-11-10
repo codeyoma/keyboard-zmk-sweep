@@ -1,6 +1,6 @@
 /*
- * KeyTray: reports the active layer and the battery levels to the KeyTray menu bar app
- * through a small GATT service. See firmware/PROTOCOL.md in the KeyTray project.
+ * KeyLay: reports the active layer and the battery levels to the KeyLay menu bar app
+ * through a small GATT service. See firmware/PROTOCOL.md in the KeyLay project.
  *
  * The state characteristic is readable and sends a notification whenever the layer state or
  * a battery level changes. On a split keyboard this runs on the central only; peripheral
@@ -32,102 +32,102 @@
 
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
-#define KEYTRAY_MAGIC 0x4B
-#define KEYTRAY_VERSION 0x01
-#define KEYTRAY_MSG_STATE 0x01
-#define KEYTRAY_BATTERY_UNKNOWN 0xFF
-#define KEYTRAY_HEADER_LEN 9
-#define KEYTRAY_MAX_BATTERIES 4
-#define KEYTRAY_MAX_LEN (KEYTRAY_HEADER_LEN + KEYTRAY_MAX_BATTERIES)
+#define KEYLAY_MAGIC 0x4B
+#define KEYLAY_VERSION 0x01
+#define KEYLAY_MSG_STATE 0x01
+#define KEYLAY_BATTERY_UNKNOWN 0xFF
+#define KEYLAY_HEADER_LEN 9
+#define KEYLAY_MAX_BATTERIES 4
+#define KEYLAY_MAX_LEN (KEYLAY_HEADER_LEN + KEYLAY_MAX_BATTERIES)
 
 /* Retry delay when the Bluetooth stack has no buffer for a notification */
-#define KEYTRAY_RETRY_MS 100
+#define KEYLAY_RETRY_MS 100
 
-#define KEYTRAY_SERVICE_UUID                                                                       \
+#define KEYLAY_SERVICE_UUID                                                                       \
     BT_UUID_128_ENCODE(0x9f3c0001, 0x5b2e, 0x4a6d, 0x8f1c, 0x3e7a2b9d4c60)
-#define KEYTRAY_STATE_UUID                                                                         \
+#define KEYLAY_STATE_UUID                                                                         \
     BT_UUID_128_ENCODE(0x9f3c0002, 0x5b2e, 0x4a6d, 0x8f1c, 0x3e7a2b9d4c60)
 
-static size_t keytray_build_state(uint8_t *buf) {
-    buf[0] = KEYTRAY_MAGIC;
-    buf[1] = KEYTRAY_VERSION;
-    buf[2] = KEYTRAY_MSG_STATE;
+static size_t keylay_build_state(uint8_t *buf) {
+    buf[0] = KEYLAY_MAGIC;
+    buf[1] = KEYLAY_VERSION;
+    buf[2] = KEYLAY_MSG_STATE;
     buf[3] = zmk_keymap_highest_layer_active();
     sys_put_le32(zmk_keymap_layer_state(), &buf[4]);
 
-    uint8_t *levels = &buf[KEYTRAY_HEADER_LEN];
+    uint8_t *levels = &buf[KEYLAY_HEADER_LEN];
     uint8_t count = 0;
 
     /* Battery 0: this device (the keyboard, or the split central / dongle) */
 #if IS_ENABLED(CONFIG_ZMK_BATTERY_REPORTING)
     levels[count++] = zmk_battery_state_of_charge();
 #else
-    levels[count++] = KEYTRAY_BATTERY_UNKNOWN;
+    levels[count++] = KEYLAY_BATTERY_UNKNOWN;
 #endif
 
     /* Batteries 1..: split peripherals. A level of 0 means nothing was received yet. */
 #if IS_ENABLED(CONFIG_ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_FETCHING)
     for (uint8_t source = 0;
-         source < ZMK_SPLIT_CENTRAL_PERIPHERAL_COUNT && count < KEYTRAY_MAX_BATTERIES; source++) {
+         source < ZMK_SPLIT_CENTRAL_PERIPHERAL_COUNT && count < KEYLAY_MAX_BATTERIES; source++) {
         uint8_t level = 0;
         int err = zmk_split_central_get_peripheral_battery_level(source, &level);
-        levels[count++] = (err == 0 && level > 0) ? level : KEYTRAY_BATTERY_UNKNOWN;
+        levels[count++] = (err == 0 && level > 0) ? level : KEYLAY_BATTERY_UNKNOWN;
     }
 #endif
 
     buf[8] = count;
-    return KEYTRAY_HEADER_LEN + count;
+    return KEYLAY_HEADER_LEN + count;
 }
 
-static ssize_t keytray_read_state(struct bt_conn *conn, const struct bt_gatt_attr *attr, void *buf,
+static ssize_t keylay_read_state(struct bt_conn *conn, const struct bt_gatt_attr *attr, void *buf,
                                   uint16_t len, uint16_t offset) {
-    uint8_t state[KEYTRAY_MAX_LEN];
-    size_t state_len = keytray_build_state(state);
+    uint8_t state[KEYLAY_MAX_LEN];
+    size_t state_len = keylay_build_state(state);
     return bt_gatt_attr_read(conn, attr, buf, len, offset, state, state_len);
 }
 
-static void keytray_notify_work_cb(struct k_work *work);
-static K_WORK_DELAYABLE_DEFINE(keytray_notify_work, keytray_notify_work_cb);
+static void keylay_notify_work_cb(struct k_work *work);
+static K_WORK_DELAYABLE_DEFINE(keylay_notify_work, keylay_notify_work_cb);
 
-static void keytray_ccc_changed(const struct bt_gatt_attr *attr, uint16_t value) {
+static void keylay_ccc_changed(const struct bt_gatt_attr *attr, uint16_t value) {
     if (value == BT_GATT_CCC_NOTIFY) {
         /* Send the current state right away to a host that just subscribed */
-        k_work_reschedule(&keytray_notify_work, K_NO_WAIT);
+        k_work_reschedule(&keylay_notify_work, K_NO_WAIT);
     }
 }
 
-BT_GATT_SERVICE_DEFINE(keytray_svc, BT_GATT_PRIMARY_SERVICE(BT_UUID_DECLARE_128(KEYTRAY_SERVICE_UUID)),
-                       BT_GATT_CHARACTERISTIC(BT_UUID_DECLARE_128(KEYTRAY_STATE_UUID),
+BT_GATT_SERVICE_DEFINE(keylay_svc, BT_GATT_PRIMARY_SERVICE(BT_UUID_DECLARE_128(KEYLAY_SERVICE_UUID)),
+                       BT_GATT_CHARACTERISTIC(BT_UUID_DECLARE_128(KEYLAY_STATE_UUID),
                                               BT_GATT_CHRC_READ | BT_GATT_CHRC_NOTIFY,
-                                              BT_GATT_PERM_READ_ENCRYPT, keytray_read_state, NULL,
+                                              BT_GATT_PERM_READ_ENCRYPT, keylay_read_state, NULL,
                                               NULL),
-                       BT_GATT_CCC(keytray_ccc_changed,
+                       BT_GATT_CCC(keylay_ccc_changed,
                                    BT_GATT_PERM_READ_ENCRYPT | BT_GATT_PERM_WRITE_ENCRYPT));
 
-static void keytray_notify_work_cb(struct k_work *work) {
-    uint8_t state[KEYTRAY_MAX_LEN];
-    size_t state_len = keytray_build_state(state);
+static void keylay_notify_work_cb(struct k_work *work) {
+    uint8_t state[KEYLAY_MAX_LEN];
+    size_t state_len = keylay_build_state(state);
 
     /* NULL: every connection that subscribed. attrs[1] is the characteristic declaration. */
-    int err = bt_gatt_notify(NULL, &keytray_svc.attrs[1], state, state_len);
+    int err = bt_gatt_notify(NULL, &keylay_svc.attrs[1], state, state_len);
     if (err == -ENOMEM || err == -ENOBUFS) {
-        k_work_reschedule(&keytray_notify_work, K_MSEC(KEYTRAY_RETRY_MS));
+        k_work_reschedule(&keylay_notify_work, K_MSEC(KEYLAY_RETRY_MS));
     } else if (err && err != -ENOTCONN) {
-        LOG_DBG("KeyTray notification failed: %d", err);
+        LOG_DBG("KeyLay notification failed: %d", err);
     }
 }
 
-static int keytray_listener(const zmk_event_t *eh) {
+static int keylay_listener(const zmk_event_t *eh) {
     /* Coalesces bursts (e.g. a tri-layer change): the work item sends the latest state */
-    k_work_reschedule(&keytray_notify_work, K_NO_WAIT);
+    k_work_reschedule(&keylay_notify_work, K_NO_WAIT);
     return ZMK_EV_EVENT_BUBBLE;
 }
 
-ZMK_LISTENER(keytray, keytray_listener);
-ZMK_SUBSCRIPTION(keytray, zmk_layer_state_changed);
+ZMK_LISTENER(keylay, keylay_listener);
+ZMK_SUBSCRIPTION(keylay, zmk_layer_state_changed);
 #if IS_ENABLED(CONFIG_ZMK_BATTERY_REPORTING)
-ZMK_SUBSCRIPTION(keytray, zmk_battery_state_changed);
+ZMK_SUBSCRIPTION(keylay, zmk_battery_state_changed);
 #if IS_ENABLED(CONFIG_ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_FETCHING)
-ZMK_SUBSCRIPTION(keytray, zmk_peripheral_battery_state_changed);
+ZMK_SUBSCRIPTION(keylay, zmk_peripheral_battery_state_changed);
 #endif
 #endif

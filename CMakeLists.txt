@@ -4,7 +4,7 @@ if(CONFIG_ZMK_MOUSE_SPEED)
   target_sources(app PRIVATE src/mouse_speed.c)
 endif()
 
-# KeyTray: active layer and battery levels for the KeyTray menu bar app
-if(CONFIG_ZMK_KEYTRAY)
-  target_sources(app PRIVATE src/keytray.c)
+# KeyLay: active layer and battery levels for the KeyLay menu bar app
+if(CONFIG_ZMK_KEYLAY)
+  target_sources(app PRIVATE src/keylay.c)
 endif()
