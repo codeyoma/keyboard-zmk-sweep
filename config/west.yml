@@ -1,5 +1,7 @@
 manifest:
   remotes:
+    - name: codeyoma
+      url-base: https://github.com/codeyoma
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
     # Additional modules containing boards/shields/custom code can be listed here as well
@@ -12,6 +14,11 @@ manifest:
       remote: zmkfirmware
       revision: v0.3
       import: app/west.yml
+
+    # KeyLay: the active layer and batteries for the KeyLay app, and the &keylay key
+    - name: keylay
+      remote: codeyoma
+      revision: main
 
   self:
     path: config
