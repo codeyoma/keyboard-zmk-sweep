@@ -20,3 +20,12 @@ config ZMK_MOUSE_SPEED_DEFAULT_LEVEL
     default 2
 
 endif
+
+config ZMK_KEYTRAY
+    bool "Report the active layer and battery levels to the KeyTray app over Bluetooth"
+    default y
+    depends on ZMK_BLE
+    depends on !ZMK_SPLIT || ZMK_SPLIT_ROLE_CENTRAL
+    help
+      Adds a GATT service whose characteristic holds the active layer and the battery
+      levels, and notifies the host when they change (src/keytray.c).
